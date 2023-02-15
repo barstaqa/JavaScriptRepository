@@ -1,0 +1,22 @@
+{
+  "name": "javascriptrepository",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barstaqa/JavaScriptRepository.git"
+  },
+  "author": "Bartosz Stachowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barstaqa/JavaScriptRepository/issues"
+  },
+  "homepage": "https://github.com/barstaqa/JavaScriptRepository#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
