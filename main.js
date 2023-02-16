@@ -1,19 +1,21 @@
-import {TestCasesRepository} from "./TestCasesRepository";
+
 
 const express = require('express');
 const app = express();
 const PORT = 9323;
 
-const testCasesRepository = new TestCasesRepository();
+const { TestCasesRepository } = require('./TestCasesRepository');
 
 app.get('/api/test/cases', (req, res) => {
-    const testCases = testCasesRepository.getTestCases();
+    const testCases = new TestCasesRepository();
+    testCases.getTestCases();
     res.json(testCases);
 });
 
 app.post('/api/test/cases', (req, res) => {
     const { title, description } = req.body;
-    const newTestCase = testCasesRepository.addTestCase(title, description);
+    const newTestCase = new TestCasesRepository();
+    newTestCase.addTestCase(title, description);
     res.json(newTestCase);
 });
 
