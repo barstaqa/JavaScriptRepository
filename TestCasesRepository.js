@@ -1,4 +1,4 @@
-export class TestCasesRepository {
+class TestCasesRepository {
     constructor() {
         this.testCases = [];
         this.currentId = 1;
@@ -19,3 +19,5 @@ export class TestCasesRepository {
         return newTestCase;
     }
 }
+
+module.exports = { TestCasesRepository };
