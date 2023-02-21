@@ -14,6 +14,12 @@ app.get('/api/test/cases', (req, res) => {
 app.post('/api/test/cases', (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
+    // TODO: Sprawdzić jak walidować tytuł ze spacją - aktualnie wysyła się post
+    if (!title) {
+        res.status(400).send('Test case should have a name, title is required.');
+        return;
+    };
+
     const testCase = testCasesRepository.addTestCase(title, description);
     res.send(testCase);
 });
