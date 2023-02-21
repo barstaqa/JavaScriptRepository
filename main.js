@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const app = express();
 const PORT = 9323;
@@ -7,20 +5,22 @@ const { TestCasesRepository } = require('./TestCasesRepository');
 
 app.use(express.json());
 
+const testCasesRepository = new TestCasesRepository();
+
 app.get('/api/test/cases', (req, res) => {
-    const testCases = new TestCasesRepository();
-    testCases.getTestCases();
-    res.json(testCases);
+    res.send(testCasesRepository.getTestCases());
 });
 
 app.post('/api/test/cases', (req, res) => {
-    const { title, description } = req.body;
-    const newTestCase = new TestCasesRepository();
-    newTestCase.addTestCase(title, description);
-    res.json(newTestCase);
+    const title = req.body.title;
+    const description = req.body.description;
+    const testCase = testCasesRepository.addTestCase(title, description);
+    res.send(testCase);
 });
 
 app.listen(
     PORT,
-    () => console.log(`server is running on ${PORT}`)
-);
+    () => {
+        console.log(`server is running on ${PORT}`)
+    });
+

@@ -10,12 +10,11 @@ class TestCasesRepository {
 
     addTestCase(title, description) {
         const newTestCase = {
+            id: this.currentId++,
             title: title,
             description: description,
-            id: this.currentId
         };
         this.testCases.push(newTestCase);
-        this.currentId++;
         return newTestCase;
     }
 }
