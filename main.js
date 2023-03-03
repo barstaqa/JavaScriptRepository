@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 9323;
 const { TestCasesRepository } = require('./TestCasesRepository');
-
+const { isTestCaseValid } = require('./modules/validation/validationTestCase')
 app.use(express.json());
 
 const testCasesRepository = new TestCasesRepository();
@@ -10,10 +10,6 @@ const testCasesRepository = new TestCasesRepository();
 app.get('/api/test/cases', (req, res) => {
     res.send(testCasesRepository.getTestCases());
 });
-
-const isTestCaseValid = (title) => {
-    return !!title && !!title.trim();
-};
 
 app.post('/api/test/cases', (req, res) => {
     const title = req.body.title;
@@ -32,5 +28,3 @@ app.listen(
     () => {
         console.log(`server is running on ${PORT}`)
     });
-
-module.exports = { isTestCaseValid };
