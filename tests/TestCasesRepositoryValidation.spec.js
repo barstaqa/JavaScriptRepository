@@ -1,6 +1,6 @@
 import { expect, test} from "vitest";
 
-const { isTestCaseValid } = require('./modules/validation/validationTestCase');
+const { isTestCaseValid } = require('../modules/validation/validationTestCase');
 
 test('empty title is valid', () => {
     const title = '';
