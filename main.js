@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 9323;
 const { TestCasesRepository } = require('./TestCasesRepository');
-
+const { isTestCaseValid } = require('./modules/validation/validationTestCase')
 app.use(express.json());
 
 const testCasesRepository = new TestCasesRepository();
@@ -14,11 +14,9 @@ app.get('/api/test/cases', (req, res) => {
 app.post('/api/test/cases', (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    if (!title) {
+    if (!isTestCaseValid(title)) {
         res.status(400).send('Test case should have a name, title is required.');
         return;
-    } else if (/^ +$/.test(title)) {
-        res.status(400).send('Test case should have a name, title cannot contain only spaces')
     };
 
     const testCase = testCasesRepository.addTestCase(title, description);
@@ -30,4 +28,3 @@ app.listen(
     () => {
         console.log(`server is running on ${PORT}`)
     });
-
