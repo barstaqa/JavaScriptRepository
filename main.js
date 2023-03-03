@@ -11,14 +11,16 @@ app.get('/api/test/cases', (req, res) => {
     res.send(testCasesRepository.getTestCases());
 });
 
+const isTestCaseValid = (title) => {
+    return !!title && !!title.trim();
+};
+
 app.post('/api/test/cases', (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    if (!title) {
+    if (!isTestCaseValid(title)) {
         res.status(400).send('Test case should have a name, title is required.');
         return;
-    } else if (/^ +$/.test(title)) {
-        res.status(400).send('Test case should have a name, title cannot contain only spaces')
     };
 
     const testCase = testCasesRepository.addTestCase(title, description);
@@ -31,3 +33,4 @@ app.listen(
         console.log(`server is running on ${PORT}`)
     });
 
+module.exports = { isTestCaseValid };
