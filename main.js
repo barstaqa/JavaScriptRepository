@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = 9323;
-const TestCaseRouter = require('./modules/routes/TestCasesRouter');
+const TestCaseRouter = require('./modules/TestCasesRepository/TestCasesRouter');
 
 app.use(express.json());
 app.use('/api/test/cases', TestCaseRouter);

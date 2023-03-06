@@ -1,7 +1,7 @@
 const express = require('express');
 const TestCaseRouter = express.Router();
-const { TestCasesRepository } = require('../../TestCasesRepository');
-const { isTestCaseValid } = require('../validation/validationTestCase')
+const { TestCasesRepository } = require('./TestCasesRepository');
+const { isTestCaseValid } = require('./validationTestCase')
 
 const testCasesRepository = new TestCasesRepository();
 
