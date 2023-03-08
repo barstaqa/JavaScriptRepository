@@ -1,30 +1,11 @@
 const express = require('express');
 const app = express();
 const PORT = 9323;
-const { TestCasesRepository } = require('./TestCasesRepository');
-const { isTestCaseValid } = require('./modules/validation/validationTestCase')
+const TestCaseRouter = require('./modules/TestCasesRepository/TestCasesRouter');
+
 app.use(express.json());
+app.use('/api/test/cases', TestCaseRouter);
 
-const testCasesRepository = new TestCasesRepository();
-
-app.get('/api/test/cases', (req, res) => {
-    res.send(testCasesRepository.getTestCases());
+app.listen(PORT, () => {
+    console.log(`server is running on ${PORT}`)
 });
-
-app.post('/api/test/cases', (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    if (!isTestCaseValid(title)) {
-        res.status(400).send('Test case should have a name, title is required.');
-        return;
-    };
-
-    const testCase = testCasesRepository.addTestCase(title, description);
-    res.send(testCase);
-});
-
-app.listen(
-    PORT,
-    () => {
-        console.log(`server is running on ${PORT}`)
-    });
