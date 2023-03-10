@@ -29,7 +29,7 @@ TestCaseRouter.post('/', (req, res) => {
     const suite = testCasesRepository.addSuite(title);
     res.send(suite);
 });
-
+//Check put method
 TestCaseRouter.put('/', (req, res) => {
     const id = req.params;
     const title = req.body.title;

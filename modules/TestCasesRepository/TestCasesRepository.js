@@ -14,16 +14,16 @@ class TestCasesRepository {
     }
 
     getTestCasesBySuite() {
-        const testCasesBySuite = {};
-        this.testCases.forEach((testCase) => {
-            const suiteId = testCase.suiteId;
-            const suiteTitle = suiteId ? this.suites.find((suite) => suite.id === suiteId).title : 'Undefined';
-            if (!testCasesBySuite[suiteTitle]) {
-                testCasesBySuite[suiteTitle] = [];
-            }
-            testCasesBySuite[suiteTitle].push(testCase);
+        const testCasesBySuit = [];
+        this.suites.forEach((suit) => {
+            const testCases = this.testCases.filter((testCase) => testCase.suitId === suit.id);
+            const suitObject = { suitId: suit.id, title: suit.title, testCases };
+            testCasesBySuit.push(suitObject);
         });
-        return testCasesBySuite;
+        const testCasesWithoutSuit = this.testCases.filter((testCase) => testCase.suitId === undefined);
+        const suitObject = { suitId: undefined, title: 'Undefined', testCases: testCasesWithoutSuit };
+        testCasesBySuit.push(suitObject);
+        return testCasesBySuit;
     }
 
     addTestCase(title, description, suiteId) {
