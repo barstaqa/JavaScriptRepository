@@ -3,13 +3,13 @@ const TestCaseRouter = express.Router();
 const { TestCasesRepository } = require('./TestCasesRepository');
 const { isTestCaseValid } = require('./validationTestCase')
 
-const testCasesRepository = new TestCasesRepository();
-
 // Define routes for the TestCaseRouter
 TestCaseRouter.get('/', (req, res) => {
+    const testCasesRepository = TestCasesRepository.getInstance();
     res.send(testCasesRepository.getTestCases());
 });
 TestCaseRouter.post('/', (req, res) => {
+    const testCasesRepository = TestCasesRepository.getInstance();
     const title = req.body.title;
     const description = req.body.description;
     const suiteId = req.body.suiteId;
@@ -23,6 +23,7 @@ TestCaseRouter.post('/', (req, res) => {
 });
 //Check put method
 TestCaseRouter.put('/:id', (req, res) => {
+    const testCasesRepository = TestCasesRepository.getInstance();
     const id = req.params.id;
     const title = req.body.title;
     const description = req.body.description;

@@ -1,8 +1,23 @@
 class TestCasesRepository {
+    static instance;
     constructor() {
-        this.testCases = [];
-        this.testSuites = [];
-        this.currentId = 1;
+        if (TestCasesRepository.instance) {
+            throw new Error('Use getInstance()')
+        }
+        else {
+            this.testCases = [];
+            this.testSuites = [];
+            this.currentId = 1;
+            TestCasesRepository.instance = this;
+        }
+
+    }
+    static getInstance() {
+        if (!TestCasesRepository.instance) {
+            TestCasesRepository.instance = new TestCasesRepository();
+        }
+
+        return TestCasesRepository.instance;
     }
     getTestCases() {
         return this.testCases;

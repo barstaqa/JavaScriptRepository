@@ -2,13 +2,13 @@ const express = require('express');
 const SuitesRouter = express.Router();
 const { TestCasesRepository } = require('./TestCasesRepository');
 
-const testCasesRepository = new TestCasesRepository();
-
 SuitesRouter.get('/', (req, res) => {
+    const testCasesRepository = TestCasesRepository.getInstance();
     res.send(testCasesRepository.getTestSuites());
 });
 
 SuitesRouter.post('/', (req, res) => {
+    const testCasesRepository = TestCasesRepository.getInstance();
     const title = req.body.title;
     let testSuite;
     if (title) {
