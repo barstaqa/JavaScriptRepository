@@ -1,9 +1,9 @@
 const express = require('express');
 const TestCasesBySuitesRouter = express.Router();
-const { TestCasesRepository } = require('./TestCasesRepository');
+const { SuitesRepository } = require('../SuitesRepository/SuitesRepository');
 
 TestCasesBySuitesRouter.get('/', (req, res) => {
-    const testCasesRepository = TestCasesRepository.getInstance();
+    const testCasesRepository = SuitesRepository.getInstance();
     const testCasesBySuite = testCasesRepository.getTestCasesBySuite();
     res.send(testCasesBySuite);
 });
