@@ -1,19 +1,19 @@
-class TestCaseRepository {
+class TestCasesRepository {
     static instance;
     constructor() {
-        if (TestCaseRepository.instance) {
+        if (TestCasesRepository.instance) {
             throw new Error("Use getInstance()");
         } else {
             this.testCases = [];
             this.currentId = 1;
-            TestCaseRepository.instance = this;
+            TestCasesRepository.instance = this;
         }
     }
     static getInstance() {
-        if (!TestCaseRepository.instance) {
-            TestCaseRepository.instance = new TestCaseRepository();
+        if (!TestCasesRepository.instance) {
+            TestCasesRepository.instance = new TestCasesRepository();
         }
-        return TestCaseRepository.instance;
+        return TestCasesRepository.instance;
     }
     getTestCases() {
         return this.testCases;
@@ -42,4 +42,4 @@ class TestCaseRepository {
     }
 }
 
-module.exports = { TestCaseRepository };
+module.exports = { TestCasesRepository };

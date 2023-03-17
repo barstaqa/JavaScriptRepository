@@ -1,4 +1,4 @@
-const { TestCaseRepository } = require("../TestCasesRepository/TestCasesRepository");
+const { TestCasesRepository } = require("../TestCasesRepository/TestCasesRepository");
 
 class SuitesRepository {
     static instance;
@@ -7,7 +7,7 @@ class SuitesRepository {
             throw new Error("Use getInstance()");
         } else {
             this.testSuites = [];
-            this.currentId = TestCaseRepository.getInstance().currentId;
+            this.currentId = TestCasesRepository.getInstance().currentId;
             SuitesRepository.instance = this;
         }
     }
