@@ -25,10 +25,8 @@ class TestCasesRepository {
             description: description,
             suiteId: suiteId,
         };
-        console.log(newTestCase); // wyświetl nowy test case
         this.testCases.push(newTestCase);
         return { id: newTestCase.id, title: newTestCase.title };
-        console.log(this.testCases); // wyświetl tablicę testCases
 
     }
     editTestCase(id, title, description, suiteId) {

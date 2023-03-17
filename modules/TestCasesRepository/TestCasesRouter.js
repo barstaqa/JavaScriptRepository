@@ -6,7 +6,6 @@ const { isTestCaseValid } = require('../TestCasesRepository/validationTestCase')
 // Define routes for the TestCaseRouter
 TestCaseRouter.get('/', (req, res) => {
     const testCasesRepository = TestCasesRepository.getInstance();
-    console.log(testCasesRepository);
     res.send(testCasesRepository.getTestCases());
 });
 TestCaseRouter.post('/', (req, res) => {
