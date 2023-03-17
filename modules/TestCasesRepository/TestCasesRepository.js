@@ -1,21 +1,42 @@
 class TestCasesRepository {
+    static instance;
     constructor() {
-        this.testCases = [];
-        this.currentId = 1;
+        if (TestCasesRepository.instance) {
+            throw new Error("Use getInstance()");
+        } else {
+            this.testCases = [];
+            this.currentId = 1;
+            TestCasesRepository.instance = this;
+        }
     }
-
+    static getInstance() {
+        if (!TestCasesRepository.instance) {
+            TestCasesRepository.instance = new TestCasesRepository();
+        }
+        return TestCasesRepository.instance;
+    }
     getTestCases() {
         return this.testCases;
     }
-
-    addTestCase(title, description) {
+    addTestCase(title, description, suiteId) {
         const newTestCase = {
             id: this.currentId++,
             title: title,
             description: description,
+            suiteId: suiteId,
         };
         this.testCases.push(newTestCase);
-        return newTestCase;
+        return { id: newTestCase.id, title: newTestCase.title };
+
+    }
+    editTestCase(id, title, description, suiteId) {
+        const testCase = this.testCases.find(
+            (testCase) => testCase.id === parseInt(id)
+        );
+        testCase.title = title;
+        testCase.description = description;
+        testCase.suiteId = suiteId;
+        return testCase;
     }
 }
 
