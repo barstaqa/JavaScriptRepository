@@ -26,7 +26,7 @@ class TestCasesRepository {
             suiteId: suiteId,
         };
         this.testCases.push(newTestCase);
-        return { id: newTestCase.id, title: newTestCase.title };
+        return { id: newTestCase.id, title: newTestCase.title, description: newTestCase.description, suiteId: newTestCase.suiteId };
 
     }
     editTestCase(id, title, description, suiteId) {
