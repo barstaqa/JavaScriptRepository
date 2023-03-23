@@ -24,9 +24,17 @@ class SuitesRepository {
         const newTestSuite = {
             suiteId: this.currentId++,
             title: title,
+            cases: [],
         };
         this.testSuites.push(newTestSuite);
         return newTestSuite;
+    }
+    addTestCase(title, description) {
+        const suite = this.testSuites[this.testSuites.length - 1];
+        const testCasesRepository = TestCasesRepository.getInstance();
+        const newTestCase = testCasesRepository.addTestCase(title, description, suite.suiteId);
+        suite.cases.push(newTestCase);
+        return newTestCase;
     }
     getTestCasesBySuite(testCases) {
         const testCasesBySuite = [];
