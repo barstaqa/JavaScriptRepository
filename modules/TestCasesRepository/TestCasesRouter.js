@@ -17,6 +17,10 @@ TestCaseRouter.post('/', (req, res) => {
         res.status(400).send('Test case should have a name, title is required.');
         return;
     };
+    if (!suiteId) {
+        res.status(400).send('Test case should belong to a suite, suiteId is required.');
+        return;
+    };
 
     const testCase = testCasesRepository.addTestCase(title, description, suiteId);
     res.send(testCase);
@@ -30,7 +34,8 @@ TestCaseRouter.put('/:id', (req, res) => {
     const suiteId = req.body.suiteId;
     const testCase = testCasesRepository.editTestCase(id, title, description, suiteId);
     if (!testCase) {
-        return res.status(404).send(`Test case with ID ${id} not found`);
+        res.status(404).send(`Test case with ID ${id} not found`);
+        return;
     }
     res.send(testCase);
 });

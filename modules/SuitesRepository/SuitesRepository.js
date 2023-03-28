@@ -42,10 +42,13 @@ class SuitesRepository {
             const suiteCases = testCases.filter(
                 (testCases) => testCases.suiteId === testSuites.suiteId
             );
+            // Create a new array of cases to prevent duplicating suiteId
+            const newCases = suiteCases.map(({ suiteId, ...rest }) => rest);
+
             testCasesBySuite.push({
                 suiteId: testSuites.suiteId,
                 title: testSuites.title,
-                cases: suiteCases,
+                cases: newCases,
             });
         }
         return testCasesBySuite;
