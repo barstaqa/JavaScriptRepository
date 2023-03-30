@@ -33,9 +33,8 @@ TestCaseRouter.put('/:id', (req, res) => {
     const description = req.body.description;
     const suiteId = req.body.suiteId;
     const testCase = testCasesRepository.editTestCase(id, title, description, suiteId);
-    if (!testCase) {
-        res.status(404).send(`Test case with ID ${id} not found`);
-        return;
+    if (!testCase.id) {
+        return res.status(404).send(`Test case with ID ${id} not found`);
     }
     res.send(testCase);
 });
