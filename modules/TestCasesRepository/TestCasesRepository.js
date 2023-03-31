@@ -33,7 +33,12 @@ class TestCasesRepository {
         const testCase = this.testCases.find(
             (testCase) => testCase.id === parseInt(id)
         );
-        testCase.title = title;
+        if (!testCase) {
+            return { id: null };
+        }
+        if (title !== undefined) {
+            testCase.title = title;
+        }
         testCase.description = description;
         testCase.suiteId = suiteId;
         return testCase;

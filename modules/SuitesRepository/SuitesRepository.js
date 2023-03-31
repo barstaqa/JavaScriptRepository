@@ -20,6 +20,10 @@ class SuitesRepository {
     getTestSuites() {
         return this.testSuites;
     }
+    getTestSuite(suiteId) {
+        const suite = this.testSuites.find((suite) => suite.suiteId === parseInt(suiteId));
+        return suite ? suite : null;
+    }
     addSuite(title) {
         const newTestSuite = {
             suiteId: this.currentId++,
@@ -31,8 +35,9 @@ class SuitesRepository {
     }
     addTestCase(title, description) {
         const suite = this.testSuites[this.testSuites.length - 1];
+        const suiteId = suite.suiteId;
         const testCasesRepository = TestCasesRepository.getInstance();
-        const newTestCase = testCasesRepository.addTestCase(title, description, suite.suiteId);
+        const newTestCase = testCasesRepository.addTestCase(title, description, suiteId);
         suite.cases.push(newTestCase);
         return newTestCase;
     }
@@ -42,10 +47,13 @@ class SuitesRepository {
             const suiteCases = testCases.filter(
                 (testCases) => testCases.suiteId === testSuites.suiteId
             );
+            // Create a new array of cases to prevent duplicating suiteId
+            const newCases = suiteCases.map(({ suiteId, ...rest }) => rest);
+
             testCasesBySuite.push({
                 suiteId: testSuites.suiteId,
                 title: testSuites.title,
-                cases: suiteCases,
+                cases: newCases,
             });
         }
         return testCasesBySuite;

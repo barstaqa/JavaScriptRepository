@@ -2,6 +2,7 @@ const express = require('express');
 const TestCaseRouter = express.Router();
 const { TestCasesRepository } = require('../TestCasesRepository/TestCasesRepository');
 const { isTestCaseValid } = require('../TestCasesRepository/validationTestCase')
+const {SuitesRepository} = require("../SuitesRepository/SuitesRepository");
 
 // Define routes for the TestCaseRouter
 TestCaseRouter.get('/', (req, res) => {
@@ -17,6 +18,12 @@ TestCaseRouter.post('/', (req, res) => {
         res.status(400).send('Test case should have a name, title is required.');
         return;
     };
+    const suite = SuitesRepository.getInstance().getTestSuite(suiteId);
+
+    if (!suite) {
+        res.status(400).send('Suite does not exist. Cannot add test case.');
+        return;
+    }
 
     const testCase = testCasesRepository.addTestCase(title, description, suiteId);
     res.send(testCase);
@@ -29,7 +36,7 @@ TestCaseRouter.put('/:id', (req, res) => {
     const description = req.body.description;
     const suiteId = req.body.suiteId;
     const testCase = testCasesRepository.editTestCase(id, title, description, suiteId);
-    if (!testCase) {
+    if (!testCase.id) {
         return res.status(404).send(`Test case with ID ${id} not found`);
     }
     res.send(testCase);
