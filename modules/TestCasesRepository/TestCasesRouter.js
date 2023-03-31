@@ -17,10 +17,13 @@ TestCaseRouter.post('/', (req, res) => {
         res.status(400).send('Test case should have a name, title is required.');
         return;
     };
-    if (!suiteId) {
-        res.status(400).send('Test case should belong to a suite, suiteId is required.');
+    testCasesRepository.getTestCases()
+    const suite = testCasesRepository.getTestSuite(suiteId);
+
+    if (!suite) {
+        res.status(400).send('Suite does not exist. Cannot add test case.');
         return;
-    };
+    }
 
     const testCase = testCasesRepository.addTestCase(title, description, suiteId);
     res.send(testCase);
